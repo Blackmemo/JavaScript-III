@@ -145,3 +145,97 @@ Humanoid.prototype.greet = function() {
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  function Hero(atts) {
+    Humanoid.call(this, atts);
+    this.class = atts.class;
+    this.damage = atts.damage;
+    this.drops = atts.drops;
+  }
+Hero.prototype = Object.create(Humanoid.prototype);
+
+
+
+// Fight methods
+Hero.prototype.attack = function(who) {
+  if (who.name == this.name) {
+    console.log(`It'd be stupid to attack yourself ${this.name}`)
+    return
+  }
+  let minhit = 0;
+  let maxhit = this.damage;
+  let applyDamage = Math.round((Math.random() * (maxhit - minhit) + minhit));
+  let randomWep = this.weapons[Math.floor(Math.random() * this.weapons.length)];
+  let checkHealth = who.healthPoints - applyDamage;
+  let drop = who.drops[Math.floor(Math.random() * who.drops.length)];
+  if (checkHealth <= 0) {
+     console.log(`${this.name} hit ${applyDamage} and has killed ${who.name} with ${randomWep}, ${who.destroy()}`);
+     console.log(`${this.name} has recieved a drop! ${drop}`)
+  }else{
+    console.log(`${this.name} Attacked ${who.name} with a ${randomWep} and dealt ${applyDamage} damage! ${who.name} has ${checkHealth} Health remaining!`);
+    who.healthPoints = checkHealth;
+  }
+}
+
+
+
+// Villain
+  function Villain(atts) {
+    Hero.call(this, atts);
+  }
+Villain.prototype = Object.create(Hero.prototype);
+
+  const memo = new Hero({
+    name: 'Memo',
+    healthPoints: 75,
+    class: 'Hybrid',
+    damage: 110,
+    drops: [
+      'Rare: Golden JS Trophy',
+      'Common: Ashes',
+      'Uncommon: I dont need you to explain this new concept to me',
+      'Very_Rare: I UNDERSTAND THIS COMPLETELY'
+    ],
+    weapons: [
+      'Abyssal whip',
+      'Trident of the seas',
+      'Dragon dagger',
+      'obsidian maul',
+      'granite maul',
+      'staff of light'
+    ],
+    language: 'english',
+    dimensions: {
+      length: 10,
+      width: 10,
+      height: 20
+    }
+  });
+
+  const broly = new Villain({
+    name: 'Broly',
+    healthPoints: 75,
+    class: 'super saiyan',
+    damage: 100,
+    drops: [
+      'Rare: Golden JS Trophy',
+      'Common: Ashes',
+      'Uncommon: I dont need you to explain this new concept to me',
+      'Very_Rare: I UNDERSTAND THIS COMPLETELY'
+    ],
+    weapons: [
+      'Kamehameha',
+      'spirit bomb',
+      'galic gun',
+      'destructo disc',
+      'Super kamehameha',
+      'Final form'
+    ],
+    language: 'english',
+    dimensions: {
+      length: 20,
+      width: 20,
+      height: 40
+    }
+  });
+ 

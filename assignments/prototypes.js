@@ -146,6 +146,7 @@ Humanoid.prototype.greet = function() {
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
 
+  //Hero
   function Hero(atts) {
     Humanoid.call(this, atts);
     this.class = atts.class;
@@ -157,11 +158,13 @@ Hero.prototype = Object.create(Humanoid.prototype);
 
 
 // Fight methods
+
 Hero.prototype.attack = function(who) {
   if (who.name == this.name) {
     console.log(`It'd be stupid to attack yourself ${this.name}`)
     return
   }
+  
   let minhit = 0;
   let maxhit = this.damage;
   let applyDamage = Math.round((Math.random() * (maxhit - minhit) + minhit));
@@ -185,6 +188,7 @@ Hero.prototype.attack = function(who) {
   }
 Villain.prototype = Object.create(Hero.prototype);
 
+// Hero created
   const memo = new Hero({
     name: 'Memo',
     healthPoints: 75,
@@ -212,6 +216,7 @@ Villain.prototype = Object.create(Hero.prototype);
     }
   });
 
+  //Villain created
   const broly = new Villain({
     name: 'Broly',
     healthPoints: 75,
@@ -238,4 +243,11 @@ Villain.prototype = Object.create(Hero.prototype);
       height: 40
     }
   });
- 
+
+
+  //Results
+
+
+  //memo.attack(broly)
+
+  //broly.attack(memo)
